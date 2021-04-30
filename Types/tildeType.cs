@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace JustAwful.Types
 {
@@ -13,7 +14,17 @@ namespace JustAwful.Types
             throw new AnyException(hold);
         }
 
-        protected static (T, T) getTwo(tildeType<T> ls, tildeType<T> rs){
+        protected static T getOne(tildeType<T> s)
+        {
+            T holding = default;
+
+            try { s.Terminate(); } catch (AnyException e) { holding = e.GetValue<T>(); }
+
+            return holding;
+        }
+
+        protected static (T, T) getTwo(tildeType<T> ls, tildeType<T> rs)
+        {
             T holding1 = default;
             T holding2 = default;
 
